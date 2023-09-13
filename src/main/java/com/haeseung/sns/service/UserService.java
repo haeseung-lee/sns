@@ -24,7 +24,7 @@ public class UserService {
         //회원가입 진행 = user를 등록
         UserEntity userEntity = userEntityRepository.save(UserEntity.of(userName, password));
 
-        return new User();
+        return User.fromEntity(userEntity);
     }
 
     //TODO : implement

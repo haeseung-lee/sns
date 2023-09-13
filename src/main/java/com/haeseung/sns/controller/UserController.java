@@ -1,6 +1,8 @@
 package com.haeseung.sns.controller;
 
 import com.haeseung.sns.controller.request.UserJoinRequest;
+import com.haeseung.sns.controller.response.UserJoinResponse;
+import com.haeseung.sns.model.User;
 import com.haeseung.sns.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,8 +20,8 @@ public class UserController {
     //TODO : implemnts
     @PostMapping("/join")
     public void join(@RequestBody UserJoinRequest request){
+        User user = userService.join(request.getUserName(),request.getPassword());
+        UserJoinResponse response = UserJoinResponse.fromUser(user);
 
-        //join
-        userService.join(request.getUserName(),request.getPassword());
     }
 }
