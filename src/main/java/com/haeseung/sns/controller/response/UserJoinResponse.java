@@ -3,7 +3,9 @@ package com.haeseung.sns.controller.response;
 import com.haeseung.sns.model.User;
 import com.haeseung.sns.model.UserRole;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+@Getter
 @AllArgsConstructor
 public class UserJoinResponse {
 

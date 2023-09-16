@@ -56,7 +56,7 @@ public class UserEntity {
     public static UserEntity of(String userName, String password){
         UserEntity userEntity = new UserEntity();
         userEntity.setUserName(userName);
-        userEntity.setUserName(password);
+        userEntity.setPassword(password);
         return userEntity;
     }
 }
