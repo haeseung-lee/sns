@@ -13,3 +13,8 @@ spring.datasource:
   platform: postgres
   driver-class-name: org.postgresql.Driver
 
+
+jwt:
+  secret-key: fast_campus.sns-application-2023.secret_key
+  #30 days
+  token.expired-time-ms: 2592000000

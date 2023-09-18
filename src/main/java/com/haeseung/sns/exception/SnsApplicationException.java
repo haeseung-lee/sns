@@ -1,5 +1,6 @@
 package com.haeseung.sns.exception;
 
+import com.haeseung.sns.SnsApplication;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -11,6 +12,10 @@ public class SnsApplicationException extends RuntimeException{
     private ErrorCode errorCode;
     private String message;
 
+    public SnsApplicationException(ErrorCode errorCode){
+        this.errorCode = errorCode;
+        this.message = null;
+    }
     @Override
     public String getMessage() {
         if(message == null){
