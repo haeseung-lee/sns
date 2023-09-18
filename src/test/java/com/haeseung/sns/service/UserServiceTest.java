@@ -1,5 +1,6 @@
 package com.haeseung.sns.service;
 
+import com.haeseung.sns.exception.ErrorCode;
 import com.haeseung.sns.exception.SnsApplicationException;
 import com.haeseung.sns.fixture.UserEntityFixture;
 import com.haeseung.sns.model.entity.UserEntity;
@@ -39,7 +40,7 @@ public class UserServiceTest {
         //mocking
         when(userEntityRepository.findByUserName(userName)).thenReturn(Optional.empty()); //결과가 없어야함
         when(encoder.encode(password)).thenReturn("encrypt_password");
-        when(userEntityRepository.save(any())).thenReturn(Optional.of(UserEntityFixture.get(userName, password)));//저장된 entity 반환!
+        when(userEntityRepository.save(any())).thenReturn(UserEntityFixture.get(userName, password));//저장된 entity 반환!
         //성공 시 어떤 exception 도 발생하지 않음
         Assertions.assertDoesNotThrow(()->userService.join(userName, password));
     }
@@ -56,7 +57,8 @@ public class UserServiceTest {
         when(encoder.encode(password)).thenReturn("encrypt_password");
         when(userEntityRepository.save(any())).thenReturn(Optional.of(fixture));//저장된 entity 반환!
 
-        Assertions.assertThrows(SnsApplicationException.class, ()->userService.join(userName, password));
+        SnsApplicationException e = Assertions.assertThrows(SnsApplicationException.class, ()->userService.join(userName, password));
+        Assertions.assertEquals(ErrorCode.DUPLICATED_USER_NAME, e.getErrorCode());
     }
 
     @Test
@@ -70,6 +72,7 @@ public class UserServiceTest {
 
         //mocking
         when(userEntityRepository.findByUserName(userName)).thenReturn(Optional.of(fixture));
+        when(encoder.matches(password, fixture.getPassword())).thenReturn(true);
 
         //성공 시 어떤 exception 도 발생하지 않음
         Assertions.assertDoesNotThrow(()->userService.login(userName, password));
@@ -84,7 +87,8 @@ public class UserServiceTest {
         //mocking
         when(userEntityRepository.findByUserName(userName)).thenReturn(Optional.empty()); //없음
 
-        Assertions.assertThrows(SnsApplicationException.class, ()->userService.join(userName, password));
+        SnsApplicationException e = Assertions.assertThrows(SnsApplicationException.class, ()->userService.login(userName, password));
+        Assertions.assertEquals(ErrorCode.USER_NOT_FOUND, e.getErrorCode());
     }
 
     @Test
@@ -100,6 +104,7 @@ public class UserServiceTest {
         //mocking
         when(userEntityRepository.findByUserName(userName)).thenReturn(Optional.of(fixture)); //있음
 
-        Assertions.assertThrows(SnsApplicationException.class, ()->userService.join(userName, wrongPassword));
+        SnsApplicationException e = Assertions.assertThrows(SnsApplicationException.class, ()->userService.login(userName, wrongPassword));
+        Assertions.assertEquals(ErrorCode.INVALID_PASSWORD, e.getErrorCode());
     }
 }

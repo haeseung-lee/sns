@@ -42,7 +42,7 @@ public class UserControllerTest {
 
         when(userService.join(userName, password)).thenReturn(mock(User.class));
 
-        mockMvc.perform(post("api/v1/user/join")
+        mockMvc.perform(post("/api/v1/users/join")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsBytes(new UserJoinRequest(userName, password)))
                 ).andDo(print())  //실행할 결과
@@ -54,9 +54,9 @@ public class UserControllerTest {
         String userName = "userName";
         String password = "password";
 
-        when(userService.join(userName, password)).thenThrow(new SnsApplicationException(ErrorCode.DUPLICATED_USER_NAME, ""));
+        when(userService.join(userName, password)).thenThrow(new SnsApplicationException(ErrorCode.DUPLICATED_USER_NAME));
 
-        mockMvc.perform(post("api/v1/user/join")
+        mockMvc.perform(post("/api/v1/users/join")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsBytes(new UserJoinRequest(userName, password)))
                 ).andDo(print())  //실행할 결과
@@ -70,7 +70,7 @@ public class UserControllerTest {
 
         when(userService.login(userName, password)).thenReturn("test_token");
 
-        mockMvc.perform(post("api/v1/user/login")
+        mockMvc.perform(post("/api/v1/users/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsBytes(new UserLoginRequest(userName, password)))
                 ).andDo(print())  //실행할 결과
@@ -82,9 +82,9 @@ public class UserControllerTest {
         String userName = "userName";
         String password = "password";
 
-        when(userService.login(userName, password)).thenThrow(new SnsApplicationException(ErrorCode.DUPLICATED_USER_NAME, ""));
+        when(userService.login(userName, password)).thenThrow(new SnsApplicationException(ErrorCode.USER_NOT_FOUND));
 
-        mockMvc.perform(post("api/v1/user/login")
+        mockMvc.perform(post("/api/v1/users/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsBytes(new UserLoginRequest(userName, password)))
                 ).andDo(print())  //실행할 결과
@@ -96,9 +96,9 @@ public class UserControllerTest {
         String userName = "userName";
         String password = "password";
 
-        when(userService.login(userName, password)).thenThrow(new SnsApplicationException(ErrorCode.DUPLICATED_USER_NAME, ""));
+        when(userService.login(userName, password)).thenThrow(new SnsApplicationException(ErrorCode.INVALID_PASSWORD));
 
-        mockMvc.perform(post("api/v1/user/login")
+        mockMvc.perform(post("/api/v1/users/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsBytes(new UserLoginRequest(userName, password)))
                 ).andDo(print())  //실행할 결과
