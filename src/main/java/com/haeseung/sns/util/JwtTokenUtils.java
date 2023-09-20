@@ -11,9 +11,10 @@ import java.util.Date;
 
 public class JwtTokenUtils {
 
-//    public static boolean isValid(String token){
-//
-//    }
+    public static String getUserName(String token, String key){
+        return extractClaims(token, key).get("userName", String.class);
+    }
+
 
     public static boolean isExpired(String token, String key){
         Date expiredDate = extractClaims(token, key).getExpiration();
