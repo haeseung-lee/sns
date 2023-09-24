@@ -1,6 +1,7 @@
 package com.haeseung.sns.configuration;
 
 import com.haeseung.sns.configuration.filter.JwtTokenFilter;
+import com.haeseung.sns.exception.CustomAuthenticationEntryPoint;
 import com.haeseung.sns.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,9 +31,8 @@ public class AuthenticationConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilterBefore(new JwtTokenFilter(key, userService), UsernamePasswordAuthenticationFilter.class);
-                // TODO
-//                .exceptionHandling()
-//                .authenticationEntryPoint()
+                .addFilterBefore(new JwtTokenFilter(key, userService), UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling()
+                .authenticationEntryPoint(new CustomAuthenticationEntryPoint());
     }
 }
