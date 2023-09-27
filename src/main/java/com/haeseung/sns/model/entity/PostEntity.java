@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 import java.time.Instant;
 
 @Entity
-@Table(name = "\"post\"") //postgresql 사용 시 user 테이블이 존재 -> 사용자가 만든 user 테이블 사용을 위해 \" 추가
+@Table(name = "\"post\"")
 @Getter
 @Setter
 @SQLDelete(sql = "UPDATED \"post\" SET deleted_at = NOW() where id=?")
