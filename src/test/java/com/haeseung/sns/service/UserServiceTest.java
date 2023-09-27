@@ -40,7 +40,7 @@ public class UserServiceTest {
         //mocking
         when(userEntityRepository.findByUserName(userName)).thenReturn(Optional.empty()); //결과가 없어야함
         when(encoder.encode(password)).thenReturn("encrypt_password");
-        when(userEntityRepository.save(any())).thenReturn(UserEntityFixture.get(userName, password));//저장된 entity 반환!
+        when(userEntityRepository.save(any())).thenReturn(UserEntityFixture.get(userName, password, 1));//저장된 entity 반환!
         //성공 시 어떤 exception 도 발생하지 않음
         Assertions.assertDoesNotThrow(()->userService.join(userName, password));
     }
@@ -50,7 +50,7 @@ public class UserServiceTest {
 
         String userName = "userName";
         String password = "password";
-        UserEntity fixture = UserEntityFixture.get(userName, password);
+        UserEntity fixture = UserEntityFixture.get(userName, password, 1);
 
         //mocking
         when(userEntityRepository.findByUserName(userName)).thenReturn(Optional.of(fixture)); //있음
@@ -68,7 +68,7 @@ public class UserServiceTest {
         String password = "password";
 
 
-        UserEntity fixture = UserEntityFixture.get(userName, password);
+        UserEntity fixture = UserEntityFixture.get(userName, password, 1);
 
         //mocking
         when(userEntityRepository.findByUserName(userName)).thenReturn(Optional.of(fixture));
@@ -99,7 +99,7 @@ public class UserServiceTest {
         String wrongPassword = "wrongPassword";
 
 
-        UserEntity fixture = UserEntityFixture.get(userName, password);
+        UserEntity fixture = UserEntityFixture.get(userName, password, 1);
 
         //mocking
         when(userEntityRepository.findByUserName(userName)).thenReturn(Optional.of(fixture)); //있음

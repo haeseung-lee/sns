@@ -86,7 +86,7 @@ public class PostControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsBytes(new PostModifyRequest(title, body)))
                 ).andDo(print())  //실행할 결과
-                .andExpect(status().isOk()); //예상결과
+                .andExpect(status().isUnauthorized()); //예상결과
     }
 
     @Test
