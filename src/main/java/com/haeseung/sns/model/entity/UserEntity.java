@@ -14,7 +14,7 @@ import java.time.Instant;
 @Table(name = "\"user\"") //postgresql 사용 시 user 테이블이 존재 -> 사용자가 만든 user 테이블 사용을 위해 \" 추가
 @Getter
 @Setter
-@SQLDelete(sql = "UPDATED \"user\" SET deleted_at = NOW() where id=?")
+@SQLDelete(sql = "UPDATE \"user\" SET deleted_at = NOW() where id=?")
 @Where(clause = "deleted_at is NULL")
 public class UserEntity {
 
