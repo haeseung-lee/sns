@@ -1,10 +1,8 @@
 package com.haeseung.sns.model.entity;
 
 import com.haeseung.sns.model.UserRole;
-import jdk.jfr.Enabled;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.JoinColumnOrFormula;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
