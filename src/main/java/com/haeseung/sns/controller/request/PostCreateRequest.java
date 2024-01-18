@@ -7,6 +7,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public class PostCreateRequest {
 
+    public PostCreateRequest(){
+        super();
+    }
     private String title;
     private String body;
 }
